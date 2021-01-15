@@ -41,9 +41,10 @@ entity Orders : cuid, managed {
   currency : Currency;
 }
 
-entity OrderItems : cuid {
-  parent    : Association to Orders;
-  car       : Association to Cars;
-  amount    : Integer;
-  netAmount : Decimal(9,2);
+entity OrderItems {
+    key ID   : UUID; 
+    parent    : Association to Orders;
+    car       : Association to Cars;
+    amount    : Integer;
+    netAmount : Decimal(9,2);
 }
