@@ -34,7 +34,8 @@ entity EngineTypes : sap.common.CodeList  {
   key code : Integer;
 } 
 
-entity Orders : cuid, managed {
+entity Orders  {
+  key ID: UUID;
   OrderNo  : String @title:'Order Number'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;
   total    : Decimal(9,2) @readonly;
