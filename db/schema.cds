@@ -3,19 +3,27 @@ namespace mhp.capire.carshop;
 using { Currency, managed, sap, cuid } from '@sap/cds/common';
 
 type EngineType : Association to EngineTypes; 
+type BikeType   : Association to BikeTypes;
 
-entity Cars : managed {
+aspect vehicle : managed {
   key ID        : Integer;
   descr         : localized String(1111);
   model         : String(100);
-  manufacturer  : Association to Manufacturers;
+  manufacturer  : Association to Manufacturers;    
   price         : Decimal;
   currency      : Currency;
-  stock         : Integer; 
-  engineType    : EngineType;
-  enginePowerKw : Integer;
+  stock         : Integer;  
   color         : String(30);
   image         : LargeBinary @Core.MediaType : 'image/png';
+}
+
+entity Cars : vehicle {
+  engineType    : EngineType;
+  enginePowerKw : Integer;
+}
+
+entity motorbike : vehicle {
+    BikeType : BikeType;
 }
 
 entity Manufacturers : managed {
@@ -33,6 +41,13 @@ entity Manufacturers : managed {
 entity EngineTypes : sap.common.CodeList  {
   key code : Integer;
 } 
+
+// Bike Types: Naked, Supersport, Chopper, Enduro, Supermoto
+// Code: 01 - Naked, 02 - Supersport, 03 - Chopper, 04 - Enduro, 05 - Supermoto
+
+entity BikeTypes : sap.common.CodeList {
+    key code : Integer;
+}
 
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
