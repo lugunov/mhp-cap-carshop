@@ -2,9 +2,9 @@ using mhp.capire.carshop as my from '../db/schema';
 
 service CatalogService @(path:'/browse') {
 
-  @readonly entity Cars as SELECT from my.Cars { *, 
-      manufacturer.name as manufacturer
-  } excluding { createdBy, modifiedBy };
+  entity Cars as projection on my.Cars;
+
+  entity Manufacturers as projection on my.Manufacturers;
 
   @readonly entity ListOfCars as SELECT from Cars
   excluding { descr };
