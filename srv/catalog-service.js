@@ -46,7 +46,6 @@ function _reduceStock(req) {
         
     })
 
-    return req.data;
 }
     //const cars = await tx.run (SELECT.from(Cars));
     //console.log(cars[0]);

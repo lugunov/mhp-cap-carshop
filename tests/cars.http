@@ -14,5 +14,5 @@ GET http://localhost:4004/browse/Cars?
 GET http://localhost:4004/browse/Manufacturers?
 # &$select=name,dateOfBirth,placeOfBirth
 # &$expand=books($select=title;$expand=currency)
-# &$filter=ID eq 101
+ &$filter=ID eq 101
 # &sap-language=de

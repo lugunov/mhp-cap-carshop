@@ -7,13 +7,17 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
-    "express": "^4"
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "supertest": "^6.1.1"
   },
   "devDependencies": {
-    "sqlite3": "^5"
+    "sqlite3": "^5",
+    "jest": "*"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds run",
+    "test": "jest"
   },
   "cds": {
     "requires": {
