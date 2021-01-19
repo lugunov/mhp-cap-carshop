@@ -7,7 +7,7 @@ type EngineType : Association to EngineTypes;
 entity Cars : managed {
   key ID        : Integer;
   descr         : localized String(1111);
-  model         : String(100);
+  model         : String(100) @title:'Model';
   manufacturer  : Association to Manufacturers;
   price         : Decimal;
   currency      : Currency;
