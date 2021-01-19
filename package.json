@@ -9,9 +9,6 @@
     "@sap/cds": "^4",
     "express": "^4"
   },
-  "devDependencies": {
-    "sqlite3": "^5"
-  },
   "scripts": {
     "start": "cds run"
   }
