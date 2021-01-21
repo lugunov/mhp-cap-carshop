@@ -3,33 +3,31 @@ namespace mhp.capire.carshop;
 using { Currency, managed, sap, cuid } from '@sap/cds/common';
 
 type EngineType : Association to EngineTypes; 
+type BikeType   : Association to BikeTypes;
 
-aspect vehicleInfo {
-    color       : String(30);
-    image       : LargeBinary @Core.MediaType : 'image/png';
-}
-
-entity Cars : managed {
-  key ID        : UUID;
+aspect vehicle : managed {
+  key ID        : Integer;
   descr         : localized String(1111);
   model         : String(100);
-  manufacturer  : Association to Manufacturers;
+  manufacturer  : Association to Manufacturers;    
   price         : Decimal;
   currency      : Currency;
-  stock         : Integer; 
-  engineType    : EngineType;
-  enginePowerKw : Integer;
-//  color         : String(30);
-//  image         : LargeBinary @Core.MediaType : 'image/png';
+  stock         : Integer;  
+  color         : String(30);
+  image         : LargeBinary @Core.MediaType : 'image/png';
 }
 
-entity Motorbikes {
-    key ID      : UUID;
-    descr       : String(111);
+entity Cars : vehicle {
+  engineType    : EngineType;
+  enginePowerKw : Integer;
+}
+
+entity motorbike : vehicle {
+    BikeType : BikeType;
 }
 
 entity Manufacturers : managed {
-  key ID     : UUID;
+  key ID     : Integer;
   name       : String(10);  
   descr      : String(111);
   country    : String(1000); 
@@ -44,6 +42,13 @@ entity EngineTypes : sap.common.CodeList  {
   key code : Integer;
 } 
 
+// Bike Types: Naked, Supersport, Chopper, Enduro, Supermoto
+// Code: 01 - Naked, 02 - Supersport, 03 - Chopper, 04 - Enduro, 05 - Supermoto
+
+entity BikeTypes : sap.common.CodeList {
+    key code : Integer;
+}
+
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;
@@ -52,7 +57,7 @@ entity Orders : cuid, managed {
 }
 
 entity OrderItems {
-    key ID    : UUID; 
+    key ID   : UUID; 
     parent    : Association to Orders;
     car       : Association to Cars;
     amount    : Integer;
