@@ -7,13 +7,15 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
+    "@sap/hana-client": "^2.7.16",
     "express": "^4.17.1",
     "jest": "^26.6.3",
     "supertest": "^6.1.1"
   },
   "devDependencies": {
-    "sqlite3": "^5",
-    "jest": "*"
+    "@sap/hdi-deploy": "3.11.15",
+    "jest": "*",
+    "sqlite3": "^5"
   },
   "scripts": {
     "start": "cds run",
@@ -23,8 +25,14 @@
     "requires": {
       "db": {
         "kind": "sqlite",
-        "model": "*"
+        "model": "*",
+        "credentials": {
+          "database": "carshop.db"
+        }
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   }
 }

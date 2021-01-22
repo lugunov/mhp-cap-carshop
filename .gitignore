@@ -27,3 +27,12 @@ mta_archives/
 # IDEs
 # .vscode
 # .idea
+
+# auto generated wildcard
+.env1
+
+# added by cds deploy
+default-env.json
+
+# auto generated wildcard
+.env3

@@ -14,7 +14,7 @@
       ]
     },
     {
-      "name": "Run mhp-cap-carshop-1",
+      "name": "Run mhp-cap-carshop-SQL",
       "request": "launch",
       "type": "node",
       "cwd": "${workspaceFolder}",
@@ -33,7 +33,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "envFile": "${workspaceFolder}/.env1",
+      "envFile": "${workspaceFolder}/.env3",
       "env": {
         "run.config": "{\"handlerId\":\"cap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/mhp-cap-carshop\\\",\\\"profileName\\\":\\\"CAPDefaultProfile\\\"}\"}"
       }

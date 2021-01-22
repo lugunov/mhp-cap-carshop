@@ -1,19 +1,34 @@
-const cds = require('@sap/cds')
-const { Cars } = cds.entities ('mhp.capire.carshop')
+const cds = require('@sap/cds');
+const { Cars } = cds.entities ('mhp.capire.carshop');
 
 /** Service implementation for CatalogService */
 module.exports = cds.service.impl(srv => {
-    srv.after('READ', 'Cars', each => each.stock > 111 && _addDiscount2(each, 11))
-    srv.before('CREATE', 'Orders', _reduceStock)
-    // srv.before ('*', (req) => { console.debug ('>>>', req.method, req.target.name) })
+
+    srv.after('READ', 'Cars', each => _addDisscount(each, 8));
+    srv.after('READ', 'Cars', _addDisscount2);
+    srv.before('CREATE', 'Orders', _reduceStock);
+
 })
 
-/** Add some discount for overstocked books */
-function _addDiscount2(each, discount) {
-    each.title += ` -- ${discount}% discount!`
+/** Add discount if stock higher than 10 */
+function _addDisscount(each, discount) {
+    //console.log(each);
+    if(each.stock > 10){
+        //each.descr += ` -- ${discount}% discount!!!`;
+    };
 }
-/** Reduce stock of ordered books if available stock suffices */
-//async function _reduceStock(req) {
+
+/** Add discount if stock higher than 10 */
+function _addDisscount2(req) {
+    //console.log(req);
+    req.forEach(data => {
+        if(data.stock > 10){
+            data.descr += ' -- 8% discount!!!';
+        }
+    });
+}
+
+/** Reduce stock of ordered cars if available stock suffices */
 function _reduceStock(req) {
 
     const tx = cds.tx(req);
@@ -47,60 +62,3 @@ function _reduceStock(req) {
     })
 
 }
-    //const cars = await tx.run (SELECT.from(Cars));
-    //console.log(cars[0]);
-
-/*
-    const { Items: orderItems } = req.data
-
-        return cds.transaction(req).run(() => orderItems.map(item =>
-            UPDATE(Cars)
-                .set('stock -=', item.amount)
-                .where('ID =', item.car_ID).and('stock >=', item.amount)
-        )).then(all => all.forEach((affectedRows, i) => {
-            if (affectedRows === 0) {
-                req.error(409, `${orderItems[i].amount} exceeds stock for car #${orderItems[i].car_ID}`)
-            }
-        }))
-    */
-
-/*
-const cds = require('@sap/cds')
-const { Cars } = cds.entities('mhp.capire.carshop')
-
-class CatalogService extends cds.ApplicationService {
-    init() {
-
-        // Reduce stock of ordered books if available stock suffices
-        this.on('CREATE', 'Orders', req => {
-            console.log(req.data);
-            req.data.Items.map( async item => {
-
-                const car_ID = item.car_ID, amount = item.amount;
-                const tx = cds.tx(req);
-                console.log(Cars);
-                //const car_ID = 100, amount = 1, tx = cds.tx(req);
-                let { stock } = await tx.read('stock').from(Cars, car_ID)
-                console.log(stock);
-                if (stock >= amount) {
-                    await tx.update(Cars, car_ID).with({ stock: stock -= amount })
-                    await this.emit('OrderedCar', { car_ID, amount, buyer: req.user.id })
-                    return { stock }
-                }
-                else return req.error(409, `${amount} exceeds stock for car #${car_ID}`)
-            });
-        })
-
-        // Add some discount for overstocked books
-        this.after('READ', 'Cars', each => {
-            if (each.stock > 5) {
-                each.descr += ` -- increase your stock!`
-            }
-        })
-
-        return super.init()
-    }
-}
-
-module.exports = { CatalogService }
-*/
