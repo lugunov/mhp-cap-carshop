@@ -22,7 +22,7 @@ entity Manufacturers : managed {
   key ID     : Integer;
   name       : String(10);  
   descr      : String(111);
-  country    : String(1000); 
+  country    : String(3); 
   cars       : Association to many Cars on cars.manufacturer = $self;
 }
 
