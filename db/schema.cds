@@ -7,7 +7,7 @@ type EngineType : Association to EngineTypes;
 entity Cars : managed {
   key ID        : Integer;
   descr         : localized String(1111);
-  model         : String(100) @title:'Model';
+  model         : String(100) @title:'{i18n>Model}';
   manufacturer  : Association to Manufacturers;
   price         : Decimal;
   currency      : Currency;
@@ -35,7 +35,7 @@ entity EngineTypes : sap.common.CodeList  {
 } 
 
 entity Orders : cuid, managed {
-  OrderNo  : String @title:'Order Number'; //> readable key
+  OrderNo  : String @title:'{i18n>OrderID}'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;
   total    : Decimal(9,2) @readonly;
   currency : Currency;
