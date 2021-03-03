@@ -1,33 +1,36 @@
 {
-  "name": "carshop",
-  "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap/cds": "^4",
-    "express": "^4",
-    "@sap/hana-client": "^2.6.61"
-  },
-  "devDependencies": {
-    "sqlite3": "5.0.0"
-  },
-  "scripts": {
-    "start": "cds run"
-  },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "hana",
-        "model": "*",
-        "credentials": {
-          "database": "db.db"
-        }
-      }
+    "name": "carshop",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^4",
+        "express": "^4",
+        "@sap/hana-client": "^2.6.61"
     },
-    "hana": {
-      "deploy-format": "hdbtable"
+    "devDependencies": {
+        "sqlite3": "5.0.0"
+    },
+    "scripts": {
+        "start": "cds run"
+    },
+    "cds": {
+        "hana": {
+            "deploy-format": "hdbtable"
+        },
+        "requires": {
+            "db": {
+                "kind": "sql",
+                "model": "*",
+                "credentials": {
+                    "database": "db/carshop.db"
+                },
+                "[production]": {
+                    "kind": "hana"
+                }
+            }
+        }
     }
-  }
 }
