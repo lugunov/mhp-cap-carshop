@@ -1,0 +1,12 @@
+### Submit Orders
+POST http://localhost:4004/browse/Orders
+Content-Type: application/json
+
+{ "OrderNo":"2020-11...", "Items":[
+    { "car_ID":201, "amount":5 }
+]}
+
+# Sending this three times should result in a 409: 5 exceeds stock for car #201
+
+### Check cars entity that stock was reduced
+GET http://localhost:4004/admin/Cars(201)
