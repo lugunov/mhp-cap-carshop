@@ -6,30 +6,48 @@
     "license": "UNLICENSED",
     "private": true,
     "dependencies": {
+        "@sap/audit-logging": "^3",
         "@sap/cds": "^4",
+        "@sap/cds-odata-v2-adapter-proxy": "^1",
+        "@sap/hana-client": "^2",
+        "@sap/hdi-deploy": "^4.0.4",
+        "@sap/xsenv": "^3",
+        "@sap/xssec": "^3",
+        "cf-nodejs-logging-support": "^6",
         "express": "^4",
-        "@sap/hana-client": "^2.6.61"
+        "passport": "^0.4.1"
     },
     "devDependencies": {
         "sqlite3": "5.0.0"
     },
     "scripts": {
-        "start": "cds run"
+        "start": "npx cds run"
     },
     "cds": {
-        "hana": {
-            "deploy-format": "hdbtable"
-        },
         "requires": {
-            "db": {
-                "kind": "sql",
-                "model": "*",
-                "credentials": {
-                    "database": "db/carshop.db"
+            "[production]": {
+                "uaa": {
+                    "kind": "xsuaa"
+                }
+            },
+            "auth": {
+                "[production]": {
+                    "strategy": "JWT"
                 },
+                "[development]": {
+                    "strategy": "mock"
+                }
+            },
+            "db": {
                 "[production]": {
                     "kind": "hana"
+                },
+                "[development]": {
+                    "kind": "sql"
                 }
+            },
+            "hana": {
+                "deploy-format": "hdbtable"
             }
         }
     }

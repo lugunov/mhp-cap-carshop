@@ -25,6 +25,7 @@ modules:
    requires:
     # Resources extracted from CAP configuration
     - name: carshop-db
+    - name: carshop-uaa
    provides:
     - name: srv-api      # required by consumers of CAP services (e.g. approuter)
       properties:
@@ -37,10 +38,12 @@ modules:
    path: gen/db  
    parameters:
      buildpack: nodejs_buildpack
+     memory: 256M
+     disk-quota: 1024M
    requires:
     # 'hana' and 'xsuaa' resources extracted from CAP configuration
     - name: carshop-db
-
+    - name: carshop-uaa
 
 resources:
  # services extracted from CAP configuration
@@ -48,10 +51,18 @@ resources:
 # ------------------------------------------------------------
  - name: carshop-db
 # ------------------------------------------------------------
-   type: org.cloudfoundry.managed-service
+   type: com.sap.xs.hdi-container
    parameters:
-     service: hana  # or 'hanatrial' on trial landscapes
+     service: hana  
      service-plan: hdi-shared
    properties:
      hdi-service-name: ${service-name}
 
+# ----------------------- UAA SERVICE ------------------------
+ - name: carshop-uaa
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: xsuaa
+     service-plan: application
+     path: ./xs-security.json
