@@ -1,0 +1,51 @@
+### Service Document
+GET http://localhost:4004/browse
+
+### Service $metadata document
+GET http://localhost:4004/browse/$metadata
+
+### Cars
+http://localhost:4004/browse/Cars
+
+### Car
+http://localhost:4004/browse/Cars(100)
+
+### Navigation
+http://localhost:4004/browse/Cars(100)/manufacturer
+
+### count
+http://localhost:4004/browse/Cars/$count
+
+### orderby
+http://localhost:4004/browse/Cars?$orderby=color
+
+### select
+http://localhost:4004/browse/Cars?$select=model
+
+
+### expand
+http://localhost:4004/browse/Cars(100)?$expand=manufacturer
+
+###Create Car
+POST http://localhost:4004/browse/Cars
+Content-Type: application/json
+
+{
+   "ID": 999,
+  "model": "MHP",
+  "descr": "Management und IT Beratung"
+}
+
+
+### Update Car
+PUT http://localhost:4004/browse/Cars(999)
+Content-Type: application/json
+
+{
+   "ID": 999,
+  "model": "MHP",
+  "descr": "A Porsche Company"
+}
+
+### Delete Car
+DELETE http://localhost:4004/browse/Cars(999)

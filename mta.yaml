@@ -48,7 +48,7 @@ resources:
 # ------------------------------------------------------------
  - name: carshop-db
 # ------------------------------------------------------------
-   type: com.sap.xs.hdi-container
+   type: org.cloudfoundry.managed-service
    parameters:
      service: hana  # or 'hanatrial' on trial landscapes
      service-plan: hdi-shared

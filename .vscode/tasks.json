@@ -7,9 +7,7 @@
       "type": "shell",
       "label": "cds watch",
       "command": "cds",
-      "args": [
-        "watch"
-      ],
+      "args": ["watch"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -20,57 +18,8 @@
       "type": "shell",
       "label": "cds run",
       "command": "cds",
-      "args": [
-        "run",
-        "--with-mocks",
-        "--in-memory?"
-      ],
+      "args": ["run", "--with-mocks", "--in-memory?"],
       "problemMatcher": []
-    },
-    {
-      "label": "cds-deploy-mhp-cap-carshop-sqlite.db",
-      "type": "shell",
-      "command": "cds",
-      "args": [
-        "deploy",
-        "--to",
-        "sqlite:sqlite.db",
-        "--no-save"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "isBackground": true
-    },
-    {
-      "label": "cds-deploy-to-hana-mhp-cap-carshop-instanceCapSchulung",
-      "type": "shell",
-      "command": "cds",
-      "args": [
-        "deploy",
-        "--to",
-        "hana:instanceCapSchulung",
-        "--no-save"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "isBackground": true
-    },
-    {
-      "label": "cds-deploy-to-hana-mhp-cap-carshop-test",
-      "type": "shell",
-      "command": "cds",
-      "args": [
-        "deploy",
-        "--to",
-        "hana:test",
-        "--no-save"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "isBackground": true
     }
   ]
 }
