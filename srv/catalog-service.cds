@@ -1,4 +1,5 @@
 using mhp.capire.carshop as my from '../db/schema';
+using { Northwind as external } from './external/Northwind.csn';
 
 service CatalogService @(path:'/browse') {
 
@@ -9,4 +10,8 @@ service CatalogService @(path:'/browse') {
   @readonly entity ListOfCars as SELECT from Cars
   excluding { descr };
  
+ @readonly entity Customers as projection on external.Customers {
+     key CustomerID, CompanyName, ContactName
+ };
+
 }
