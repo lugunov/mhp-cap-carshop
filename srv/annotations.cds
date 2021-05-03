@@ -1,4 +1,4 @@
-using from './catalog-service'; 
+/*using from './catalog-service'; 
 using from './admin-service';
 
 
@@ -42,4 +42,4 @@ annotate CatalogService.Cars with @(
             {Value: currency.symbol, Label:' '},
         ]
 	}
-);
+);*/

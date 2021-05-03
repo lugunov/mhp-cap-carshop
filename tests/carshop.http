@@ -49,3 +49,22 @@ Content-Type: application/json
 
 ### Delete Car
 DELETE http://localhost:4004/browse/Cars(999)
+
+
+### Submit Order Event
+POST http://localhost:4004/browse/submitOrder
+Content-Type: application/json
+
+{ "car":101,
+  "amount":6, 
+  "CustID":"ANATR"
+}
+
+
+### Submit Order Entity
+POST http://localhost:4004/browse/Orders
+Content-Type: application/json 
+
+{ "OrderNo":"2021-05-02 100001", "Items":[
+    { "car_ID":100, "amount":5  }
+], "Companyname":"MyCompany" }
