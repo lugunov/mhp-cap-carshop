@@ -1,0 +1,43 @@
+###get Oauth token
+
+# @name auth
+POST https://78b3e645trial.authentication.eu10.hana.ondemand.com/oauth/token HTTP/1.1
+Content-type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&client_id=sb-carshop!t56788
+&client_secret=0VQE9JoyVuhjxnMFKlJv/fY5mxI=
+
+
+###
+GET https://78b3e645trial-dev-carshop-srv.cfapps.eu10.hana.ondemand.com/browse/Cars
+Content-Type: application/json
+
+
+
+### No Auth - fail
+GET https://78b3e645trial-dev-carshop-srv.cfapps.eu10.hana.ondemand.com/admin/Orders
+Content-Type: application/json
+
+
+
+### With token
+GET https://78b3e645trial-dev-carshop-srv.cfapps.eu10.hana.ondemand.com/admin/Cars
+Content-Type: application/json
+Authorization: Bearer {{auth.response.body.access_token}}
+
+
+###No Authorization -fail
+GET https://78b3e645trial-dev-carshop-srv.cfapps.eu10.hana.ondemand.com/admin/Cars
+Content-Type: application/json
+
+
+### With token
+GET https://78b3e645trial-dev-carshop-srv.cfapps.eu10.hana.ondemand.com/admin/Orders
+Content-Type: application/application/json
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### 
+GET https://78b3e645trial.authentication.eu10.hana.ondemand.com/oauth/authorize?response_type=code&client_id=sb-carshop!t56788&client_secret=0VQE9JoyVuhjxnMFKlJv/fY5mxI= 
+Content-type: application/x-www-form-urlencoded
+

@@ -8,6 +8,7 @@ GET http://localhost:4004/admin/Orders?
 ### Submit Orders
 POST http://localhost:4004/browse/Orders
 Content-Type: application/json
+Authorization: Basic rob:123
 
 { "OrderNo":"testNr", 
 "Items":[

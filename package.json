@@ -1,54 +1,51 @@
 {
-    "name": "carshop",
-    "version": "1.0.0",
-    "description": "A simple CAP project.",
-    "repository": "<Add your repository here>",
-    "license": "UNLICENSED",
-    "private": true,
-    "dependencies": {
-        "@sap/audit-logging": "^3",
-        "@sap/cds": "^4",
-        "@sap/cds-odata-v2-adapter-proxy": "^1",
-        "@sap/hana-client": "^2",
-        "@sap/hdi-deploy": "^4.0.4",
-        "@sap/xsenv": "^3",
-        "@sap/xssec": "^3",
-        "cf-nodejs-logging-support": "^6",
-        "express": "^4",
-        "passport": "^0.4.1"
-    },
-    "devDependencies": {
-        "sqlite3": "5.0.0"
-    },
-    "scripts": {
-        "start": "npx cds run"
-    },
-    "cds": {
-        "requires": {
-            "[production]": {
-                "uaa": {
-                    "kind": "xsuaa"
-                }
-            },
-            "auth": {
-                "[production]": {
-                    "strategy": "JWT"
-                },
-                "[development]": {
-                    "strategy": "mock"
-                }
-            },
-            "db": {
-                "[production]": {
-                    "kind": "hana"
-                },
-                "[development]": {
-                    "kind": "sql"
-                }
-            },
-            "hana": {
-                "deploy-format": "hdbtable"
-            }
+  "name": "carshop",
+  "version": "0.0.1",
+  "description": "Business Application",
+  "dependencies": {
+    "@sap/cds": "^5",
+    "@sap/audit-logging": "^3",
+    "@sap/hana-client": "^2",
+    "@sap/xsenv": "^3",
+    "@sap/xssec": "^3",
+    "passport": "^0.4.1",
+    "debug": "^4.3",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.84.7",
+    "sqlite3": "5.0.0"
+  },
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "auth": {
+        "[production]": {
+          "strategy": "JWT"
+        },
+        "[development]": {
+          "strategy": "mock"
         }
+      },
+      "db": {
+        "kind": "sqlite",
+        "model": "*",
+        "credentials": {
+          "database": "carshop.db"
+        }
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
+  },
+  "sapux": [
+    "app/admin",
+    "app/browse"
+  ]
 }

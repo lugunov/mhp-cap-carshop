@@ -1,6 +1,4 @@
-using from './catalog-service'; 
-using from './admin-service';
-
+using CatalogService as service from '../../srv/catalog-service';
 
 annotate CatalogService.Cars with {
     title @( Common: { Label: '{i18n>Title}'});

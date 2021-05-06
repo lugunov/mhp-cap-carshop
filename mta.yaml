@@ -1,68 +1,95 @@
-## Generated mta.yaml based on template version 0.4.0
-## appName = carshop
-## language=nodejs; multiTenant=false
-## approuter=
-_schema-version: '3.1'
+_schema-version: "3.2"
 ID: carshop
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: carshop-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: carshop-uaa
+  - name: carshop-db
+  parameters:
+    buildpack: nodejs_buildpack
+    disk-quota: 1024M
+    memory: 256M
+- name: carshop-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: carshop-uaa
+  - name: carshop-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    disk-quota: 1024M
+    memory: 512M
+- name: carshop-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: carshop-html5-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - ordersadmin.zip
+      name: ordersadmin
+      target-path: resources/
+    - artifacts:
+      - browsebrowse.zip
+      name: browsebrowse
+      target-path: resources/
+- name: ordersadmin
+  type: html5
+  path: app/admin
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: browsebrowse
+  type: html5
+  path: app/browse
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: carshop-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: carshop-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+  properties:
+    hdi-service-name: ${service-name}
+- name: carshop-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: carshop-html5-app-host-service
+    service-plan: app-host
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
-   
 build-parameters:
   before-all:
-   - builder: custom
-     commands:
-      - npm install --production
-      - npx -p @sap/cds-dk cds build --production
-
-modules:
- # --------------------- SERVER MODULE ------------------------
- - name: carshop-srv
- # ------------------------------------------------------------
-   type: nodejs
-   path: gen/srv
-   requires:
-    # Resources extracted from CAP configuration
-    - name: carshop-db
-    - name: carshop-uaa
-   provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-      properties:
-        srv-url: ${default-url}
-
- # -------------------- SIDECAR MODULE ------------------------
- - name: carshop-db-deployer
- # ------------------------------------------------------------
-   type: hdb
-   path: gen/db  
-   parameters:
-     buildpack: nodejs_buildpack
-     memory: 256M
-     disk-quota: 1024M
-   requires:
-    # 'hana' and 'xsuaa' resources extracted from CAP configuration
-    - name: carshop-db
-    - name: carshop-uaa
-
-resources:
- # services extracted from CAP configuration
- # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
-# ------------------------------------------------------------
- - name: carshop-db
-# ------------------------------------------------------------
-   type: com.sap.xs.hdi-container
-   parameters:
-     service: hana  
-     service-plan: hdi-shared
-   properties:
-     hdi-service-name: ${service-name}
-
-# ----------------------- UAA SERVICE ------------------------
- - name: carshop-uaa
-# ------------------------------------------------------------
-   type: org.cloudfoundry.managed-service
-   parameters:
-     service: xsuaa
-     service-plan: application
-     path: ./xs-security.json
+  - builder: custom
+    commands:
+    - npm install --production
+    - npx -p @sap/cds-dk cds build --production
