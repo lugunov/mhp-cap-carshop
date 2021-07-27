@@ -10,3 +10,4 @@ service CatalogService @(path:'/browse') {
   excluding { descr };
  
 }
+
