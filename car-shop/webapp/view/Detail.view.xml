@@ -38,6 +38,7 @@
 					<Column>
 						<Text text="{i18n>detailLineItemTableIDColumn}"/>
 					</Column>
+					<Column><Text text="Antriebsart"/></Column>
 					<Column
 						minScreenWidth="Tablet"
 						demandPopin="true"
@@ -51,6 +52,7 @@
 							<ObjectIdentifier
 								title="{model}"
 								text="{ID}"/>
+								<ObjectIdentifier text="{engineType/name}"/>
 							<ObjectNumber
 								number="{
 									path: 'price',
