@@ -1,5 +1,5 @@
 ID;descr;model;manufacturer_ID;price;currency_code;stock;engineType_code;enginePowerKw;color;image
-100;Limousine;330;100;12.12;EUR;10;01;120;red;testpic330
+100;Limousine;330;100;12.12;EUR;10;02;120;red;testpic330
 101;Sportauto;M1;100;20.20;EUR;10;01;300;blue;testpicM1
 102;E-Cheep;EQC;101;50.50;EUR;10;03;120;green;testpicEQC
 103;E-Limousine;Model 3;102;60.60;EUR;15;03;200;black;testpicModel3

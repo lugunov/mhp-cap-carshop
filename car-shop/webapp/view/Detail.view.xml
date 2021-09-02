@@ -52,7 +52,7 @@
 							<ObjectIdentifier
 								title="{model}"
 								text="{ID}"/>
-							<ObjectIdentifier text="{engineType/name}"/>
+							<ObjectIdentifier text="{engineType/name}" badgeNotes="{ path: 'engineType_code', formatter: '.formatter.engineType'}"/>
 							<ObjectNumber
 								number="{
 									path: 'price',

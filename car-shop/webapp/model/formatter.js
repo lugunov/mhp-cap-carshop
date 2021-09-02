@@ -15,6 +15,16 @@ sap.ui.define([], function () {
 			}
 
 			return parseFloat(sValue).toFixed(2);
-		}
+        },
+        
+        engineType: function (iValue) {
+            var bBadgeNotes = false;
+
+            if (iValue === 2) {
+                bBadgeNotes = true;
+            }
+
+            return bBadgeNotes
+        }
 	};
 });
