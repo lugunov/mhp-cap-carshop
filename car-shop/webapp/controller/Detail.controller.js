@@ -36,7 +36,18 @@ sap.ui.define([
 
 		/* =========================================================== */
 		/* event handlers                                              */
-		/* =========================================================== */
+        /* =========================================================== */
+        
+        /**		 
+        Navigate to the selected car to edit the data		 
+        */	
+        onCarPress: function (oEvent) {			
+            this.getRouter().navTo("car", {
+                objectId: oEvent.getSource().getBindingContext().getProperty("manufacturer_ID"),
+                carId: oEvent.getSource().getBindingContext().getProperty("ID")
+            });		
+        },
+
 
 		/**
 		 * Event handler when the share by E-Mail button has been clicked

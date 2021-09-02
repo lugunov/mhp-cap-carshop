@@ -102,10 +102,26 @@
 						"master",
 						"object"
 					]
-				}
+                },
+                {
+                    "pattern": "Manufactures/{objectId}/Car/{carId}",
+                    "name": "car",
+                    "target": [
+                        "master",
+                        "object",
+                        "car"
+                    ]
+                }
 			],
 
 			"targets": {
+                "car": {
+                    "viewName": "Car",
+                    "viewId": "car",
+                    "viewLevel": 1,
+                    "controlAggregation": "endColumnPages"
+                },
+
 				"master": {
 					"viewName": "Master",
 					"viewLevel": 1,
