@@ -1,6 +1,43 @@
 <mvc:View
 	controllerName="mhp.demo.carshop.controller.Car"
 	xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
-
+    <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Edit Car">
+        <f:content>
+            <Label text="Car"/>
+            <Select enabled="false" id="cars" selectedKey="{ID}" items="{/Cars}">
+                <items>
+                    <core:Item text="{ID}" key="{ID}"/>
+                </items>
+            </Select>
+            <Label text="Engine Power"/>
+            <Input value="{enginePowerKw}"/>
+            <Label text="Color"/>
+            <Select id="color" selectedKey="{color}">
+                <items>
+                    <core:Item text="red" key="red"/>
+                    <core:Item text="blue" key="blue"/>
+                    <core:Item text="green" key="green"/>
+                    <core:Item text="black" key="black"/>
+                </items>
+            </Select>
+            <core:Title text="Price"/>
+            <Label text="Price"/>
+            <StepInput min="1" max="200000" displayValuePrecision="0" step="1000"
+                    value="{
+                        path: 'price', 
+                        type: 'sap.ui.model.odata.type.Decimal', 
+                        formatOptions: {
+                            decimals: 0
+                            },
+                            constraints: {
+                                minimum: '1',
+                                maximum: '200000',
+                                scale: '0'
+                            }
+                        }"/>
+        </f:content>
+    </f:SimpleForm>
 </mvc:View>
