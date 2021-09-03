@@ -39,5 +39,10 @@
                             }
                         }"/>
         </f:content>
+        <Toolbar>
+            <ToolbarSpacer/>
+            <Button icon="sap-icon://save" press=".onSavePress"/>
+        </Toolbar>
+
     </f:SimpleForm>
 </mvc:View>

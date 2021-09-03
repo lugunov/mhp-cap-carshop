@@ -71,7 +71,10 @@
 				}
 			},
 			"": {
-				"dataSource": "mainService",
+                "dataSource": "mainService",
+                "settings": {
+                    "defaultBindingMode": "TwoWay"
+                },
 				"preload": true
 			}
 		},
