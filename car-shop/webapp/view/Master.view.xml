@@ -60,12 +60,12 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<items>
-					<ObjectListItem
+					<StandardListItem
 						type="Navigation"
 						press=".onSelectionChange"
 						title="{name}"
->
-					</ObjectListItem>
+                        description="{descr}">
+					</StandardListItem>
 				</items>
 			</List>
 		</semantic:content>
