@@ -21,7 +21,7 @@
 			<Table
 				id="lineItemsList"
 				width="auto"
-				items="{cars}"
+				items="{ path: 'cars', parameters: {expand: 'engineType'}}"
 				updateFinished=".onListUpdateFinished"
 				noDataText="{i18n>detailLineItemTableNoDataText}"
 				busyIndicatorDelay="{detailView>/lineItemTableDelay}">
@@ -50,7 +50,7 @@
 						<cells>
 							<ObjectIdentifier
 								title="{model}"
-								text="{ID}"/>
+								text="{engineType/name}"/>
 							<ObjectNumber
 								number="{
 									path: 'price',
