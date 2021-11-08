@@ -1,57 +1,86 @@
-## Generated mta.yaml based on template version 0.4.0
-## appName = carshop
-## language=nodejs; multiTenant=false
-## approuter=
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: carshop
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: carshop-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: carshop-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+- name: carshop-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: carshop-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: carshop-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: carshop-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - mhpdemoorderreport.zip
+      name: mhpdemoorderreport
+      target-path: resources/
+- name: mhpdemoorderreport
+  type: html5
+  path: app/order-report
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: carshop-db
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+  properties:
+    hdi-service-name: ${service-name}
+- name: carshop-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: carshop-html5-srv
+    service-plan: app-host
+- name: carshop-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: carshop-dest-srv
+    service-plan: lite
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
-   
 build-parameters:
   before-all:
-   - builder: custom
-     commands:
-      - npm install --production
-      - npx -p @sap/cds-dk cds build --production
-
-modules:
- # --------------------- SERVER MODULE ------------------------
- - name: carshop-srv
- # ------------------------------------------------------------
-   type: nodejs
-   path: gen/srv
-   requires:
-    # Resources extracted from CAP configuration
-    - name: carshop-db
-   provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-      properties:
-        srv-url: ${default-url}
-
- # -------------------- SIDECAR MODULE ------------------------
- - name: carshop-db-deployer
- # ------------------------------------------------------------
-   type: hdb
-   path: gen/db  
-   parameters:
-     buildpack: nodejs_buildpack
-   requires:
-    # 'hana' and 'xsuaa' resources extracted from CAP configuration
-    - name: carshop-db
-
-
-resources:
- # services extracted from CAP configuration
- # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
-# ------------------------------------------------------------
- - name: carshop-db
-# ------------------------------------------------------------
-   type: org.cloudfoundry.managed-service
-   parameters:
-     service: hana  # or 'hanatrial' on trial landscapes
-     service-plan: hdi-shared
-   properties:
-     hdi-service-name: ${service-name}
-
+  - builder: custom
+    commands:
+    - npm install --production
+    - npx -p @sap/cds-dk cds build --production
