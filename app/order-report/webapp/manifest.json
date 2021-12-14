@@ -106,7 +106,8 @@
                                         "route": "OrdersObjectPage"
                                     }
                                 }
-                            }
+                            },
+                            "initialLoad": true
                         }
                     }
                 },
