@@ -1,0 +1,7 @@
+<mvc:View
+    controllerName="mhp.demo.carshop.controller.Car"
+    xmlns="sap.m"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:mvc="sap.ui.core.mvc">
+
+</mvc:View>
