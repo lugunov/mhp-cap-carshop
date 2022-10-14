@@ -1,9 +1,10 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
     "../model/formatter",
     "sap/m/library"
-], function (BaseController, JSONModel, formatter, mobileLibrary) {
+], function (BaseController, JSONModel, MessageToast, formatter, mobileLibrary) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -44,6 +45,37 @@ sap.ui.define([
                 path: sObjectPath
             });
         
+        },
+
+        onSavePress : function () {
+            var oModel = this.getModel();
+            // Check for changes
+debugger;
+            if (oModel.hasPendingChanges()) {
+                // Save the data changed in the OData model
+                oModel.submitChanges({
+                    success: function () {
+                        // Show success message in a Toast
+                        MessageToast.show("Car Data saved");
+                        // Navigate to the previous view after saving
+                        this.getRouter().navTo("object", {
+                            objectId: this.sManufacturerID
+                        });
+                    }.bind(this), // bind the context otherwise this refers to something else
+                    error: function () {
+                        // Display error and do nothing more 
+                        MessageToast.show("Fehler beim Speichern!");
+                    }
+                });
+            } else {
+                // No changes message
+                MessageToast.show("Keine Änderungen");
+                // Navigate to the previous view after message
+                this.getRouter().navTo("object", {
+                    objectId: this.sManufacturerID
+                });
+            }
+
         }
     });
 
