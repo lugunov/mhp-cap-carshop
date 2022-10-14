@@ -42,7 +42,7 @@ sap.ui.define([
             this.getRouter().navTo("car", {
                 carId: oEvent.getSource().getBindingContext().getProperty("ID"),
                 objectId: oEvent.getSource().getBindingContext().getProperty("manufacturer_ID")
-            })
+            });
         },
 
         /**
