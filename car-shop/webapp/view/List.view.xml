@@ -62,10 +62,11 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <items>
-                    <ObjectListItem
+                    <StandardListItem
                         type="Navigation"
                         press=".onSelectionChange"
                         title="{name}"
+                        description="{descr}"
                          />
                 </items>
             </List>

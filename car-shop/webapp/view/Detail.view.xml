@@ -22,7 +22,7 @@
             <Table
                 id="lineItemsList"
                 width="auto"
-                items="{Cars}"
+                items="{ path: 'cars', parameters: { expand: 'engineType' }}"
                 updateFinished=".onListUpdateFinished"
                 noDataText="{i18n>detailLineItemTableNoDataText}"
                 busyIndicatorDelay="{detailView>/lineItemTableDelay}">
@@ -39,6 +39,9 @@
                     <Column>
                         <Text text="{i18n>detailLineItemTableIDColumn}"/>
                     </Column>
+                    <Column>
+                        <Text text="Engine Type"/>
+                    </Column>
                     <Column
                         minScreenWidth="Tablet"
                         demandPopin="true"
@@ -52,6 +55,8 @@
                             <ObjectIdentifier
                                 title="{model}"
                                 text="{ID}"/>
+                            <ObjectIdentifier
+                                text="{engineType/name}"/>
                             <ObjectNumber
                                 number="{
                                     path: 'price',
