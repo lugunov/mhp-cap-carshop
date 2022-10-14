@@ -38,6 +38,13 @@ sap.ui.define([
         /* event handlers                                              */
         /* =========================================================== */
 
+        onCarPress: function (oEvent) {
+            this.getRouter().navTo("car", {
+                carId: oEvent.getSource().getBindingContext().getProperty("ID"),
+                objectId: oEvent.getSource().getBindingContext().getProperty("manufacturer_ID")
+            })
+        },
+
         /**
          * Event handler when the share by E-Mail button has been clicked
          * @public

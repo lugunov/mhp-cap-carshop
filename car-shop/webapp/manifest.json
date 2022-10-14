@@ -105,6 +105,15 @@
             "list",
             "object"
           ]
+        },
+        {
+            "pattern": "Manufactures/{objectId}/Car/{carId}",
+            "name": "car",
+            "target": [
+                "list",
+                "object",
+                "car"
+            ]
         }
       ],
       "targets": {
@@ -127,6 +136,12 @@
         "notFound": {
           "viewName": "NotFound",
           "viewId": "notFound"
+        },
+        "car": {
+            "viewName": "Car",
+            "viewId": "car",
+            "viewLevel": 2,
+            "controlAggregation": "endColumnPages"
         }
       }
     },
