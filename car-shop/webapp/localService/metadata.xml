@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="AdminService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Cars" EntityType="AdminService.Cars"/>
+                <EntitySet Name="Cars_texts" EntityType="AdminService.Cars_texts"/>
+                <EntitySet Name="Currencies" EntityType="AdminService.Currencies"/>
+                <EntitySet Name="Currencies_texts" EntityType="AdminService.Currencies_texts"/>
+                <EntitySet Name="EngineTypes" EntityType="AdminService.EngineTypes"/>
+                <EntitySet Name="EngineTypes_texts" EntityType="AdminService.EngineTypes_texts"/>
+                <EntitySet Name="Manufactures" EntityType="AdminService.Manufactures"/>
+                <EntitySet Name="OrderItems" EntityType="AdminService.OrderItems"/>
+                <EntitySet Name="Orders" EntityType="AdminService.Orders"/>
+                <AssociationSet Name="Cars_manufacturer" Association="AdminService.Cars_manufacturer">
+                    <End Role="Cars" EntitySet="Cars"/>
+                    <End Role="Manufactures" EntitySet="Manufactures"/>
+                </AssociationSet>
+                <AssociationSet Name="Cars_currency" Association="AdminService.Cars_currency">
+                    <End Role="Cars" EntitySet="Cars"/>
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                </AssociationSet>
+                <AssociationSet Name="Cars_engineType" Association="AdminService.Cars_engineType">
+                    <End Role="Cars" EntitySet="Cars"/>
+                    <End Role="EngineTypes" EntitySet="EngineTypes"/>
+                </AssociationSet>
+                <AssociationSet Name="Cars_texts_1" Association="AdminService.Cars_texts_1">
+                    <End Role="Cars" EntitySet="Cars"/>
+                    <End Role="Cars_texts" EntitySet="Cars_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Cars_localized" Association="AdminService.Cars_localized">
+                    <End Role="Cars" EntitySet="Cars"/>
+                    <End Role="Cars_texts" EntitySet="Cars_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Currencies_texts_1" Association="AdminService.Currencies_texts_1">
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                    <End Role="Currencies_texts" EntitySet="Currencies_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Currencies_localized" Association="AdminService.Currencies_localized">
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                    <End Role="Currencies_texts" EntitySet="Currencies_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="EngineTypes_texts_1" Association="AdminService.EngineTypes_texts_1">
+                    <End Role="EngineTypes" EntitySet="EngineTypes"/>
+                    <End Role="EngineTypes_texts" EntitySet="EngineTypes_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="EngineTypes_localized" Association="AdminService.EngineTypes_localized">
+                    <End Role="EngineTypes" EntitySet="EngineTypes"/>
+                    <End Role="EngineTypes_texts" EntitySet="EngineTypes_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="OrderItems_parent" Association="AdminService.OrderItems_parent">
+                    <End Role="OrderItems" EntitySet="OrderItems"/>
+                    <End Role="Orders" EntitySet="Orders"/>
+                </AssociationSet>
+                <AssociationSet Name="OrderItems_car" Association="AdminService.OrderItems_car">
+                    <End Role="OrderItems" EntitySet="OrderItems"/>
+                    <End Role="Cars" EntitySet="Cars"/>
+                </AssociationSet>
+                <AssociationSet Name="Orders_currency" Association="AdminService.Orders_currency">
+                    <End Role="Orders" EntitySet="Orders"/>
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                </AssociationSet>
+            </EntityContainer>
+            <EntityType Name="Cars" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1111"/>
+                <Property Name="model" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="manufacturer" Relationship="AdminService.Cars_manufacturer" FromRole="Cars" ToRole="Manufactures"/>
+                <Property Name="price" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <NavigationProperty Name="currency" Relationship="AdminService.Cars_currency" FromRole="Cars" ToRole="Currencies"/>
+                <Property Name="stock" Type="Edm.Int32"/>
+                <NavigationProperty Name="engineType" Relationship="AdminService.Cars_engineType" FromRole="Cars" ToRole="EngineTypes"/>
+                <Property Name="enginePowerKw" Type="Edm.Int32"/>
+                <Property Name="color" Type="Edm.String" MaxLength="30"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Cars_texts_1" FromRole="Cars" ToRole="Cars_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Cars_localized" FromRole="Cars" ToRole="Cars_texts"/>
+                <Property Name="manufacturer_ID" Type="Edm.Int32"/>
+                <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="engineType_code" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Cars_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1111"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Currencies_texts_1" FromRole="Currencies" ToRole="Currencies_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Currencies_localized" FromRole="Currencies" ToRole="Currencies_texts"/>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="EngineTypes">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.EngineTypes_texts_1" FromRole="EngineTypes" ToRole="EngineTypes_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.EngineTypes_localized" FromRole="EngineTypes" ToRole="EngineTypes_texts"/>
+            </EntityType>
+            <EntityType Name="EngineTypes_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.Int32" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Manufactures">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="10"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="111"/>
+                <Property Name="country" Type="Edm.String" MaxLength="1000"/>
+                <NavigationProperty Name="cars" Relationship="AdminService.Cars_manufacturer" FromRole="Manufactures" ToRole="Cars"/>
+            </EntityType>
+            <EntityType Name="OrderItems">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="parent" Relationship="AdminService.OrderItems_parent" FromRole="OrderItems" ToRole="Orders"/>
+                <NavigationProperty Name="car" Relationship="AdminService.OrderItems_car" FromRole="OrderItems" ToRole="Cars"/>
+                <Property Name="amount" Type="Edm.Int32"/>
+                <Property Name="netAmount" Type="Edm.Decimal" Scale="2" Precision="9"/>
+                <Property Name="parent_ID" Type="Edm.Guid"/>
+                <Property Name="car_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Orders">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="OrderNo" Type="Edm.String"/>
+                <NavigationProperty Name="Items" Relationship="AdminService.OrderItems_parent" FromRole="Orders" ToRole="OrderItems"/>
+                <Property Name="total" Type="Edm.Decimal" Scale="2" Precision="9"/>
+                <NavigationProperty Name="currency" Relationship="AdminService.Orders_currency" FromRole="Orders" ToRole="Currencies"/>
+                <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <Association Name="Cars_manufacturer">
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="*"/>
+                <End Role="Manufactures" Type="AdminService.Manufactures" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Manufactures">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="Cars">
+                        <PropertyRef Name="manufacturer_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Cars_currency">
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="*"/>
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Currencies">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="Cars">
+                        <PropertyRef Name="currency_code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Cars_engineType">
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="*"/>
+                <End Role="EngineTypes" Type="AdminService.EngineTypes" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="EngineTypes">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="Cars">
+                        <PropertyRef Name="engineType_code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Cars_texts_1">
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="*"/>
+                <End Role="Cars_texts" Type="AdminService.Cars_texts" Multiplicity="*">
+                    <OnDelete Action="Cascade"/>
+                </End>
+            </Association>
+            <Association Name="Cars_localized">
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="*"/>
+                <End Role="Cars_texts" Type="AdminService.Cars_texts" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Cars_texts">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="Cars">
+                        <PropertyRef Name="ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Currencies_texts_1">
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="*"/>
+                <End Role="Currencies_texts" Type="AdminService.Currencies_texts" Multiplicity="*">
+                    <OnDelete Action="Cascade"/>
+                </End>
+            </Association>
+            <Association Name="Currencies_localized">
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="*"/>
+                <End Role="Currencies_texts" Type="AdminService.Currencies_texts" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Currencies_texts">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="Currencies">
+                        <PropertyRef Name="code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="EngineTypes_texts_1">
+                <End Role="EngineTypes" Type="AdminService.EngineTypes" Multiplicity="*"/>
+                <End Role="EngineTypes_texts" Type="AdminService.EngineTypes_texts" Multiplicity="*">
+                    <OnDelete Action="Cascade"/>
+                </End>
+            </Association>
+            <Association Name="EngineTypes_localized">
+                <End Role="EngineTypes" Type="AdminService.EngineTypes" Multiplicity="*"/>
+                <End Role="EngineTypes_texts" Type="AdminService.EngineTypes_texts" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="EngineTypes_texts">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="EngineTypes">
+                        <PropertyRef Name="code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItems_parent">
+                <End Role="OrderItems" Type="AdminService.OrderItems" Multiplicity="*"/>
+                <End Role="Orders" Type="AdminService.Orders" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Orders">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="OrderItems">
+                        <PropertyRef Name="parent_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItems_car">
+                <End Role="OrderItems" Type="AdminService.OrderItems" Multiplicity="*"/>
+                <End Role="Cars" Type="AdminService.Cars" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Cars">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="OrderItems">
+                        <PropertyRef Name="car_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Orders_currency">
+                <End Role="Orders" Type="AdminService.Orders" Multiplicity="*"/>
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Currencies">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="Orders">
+                        <PropertyRef Name="currency_code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Annotations Target="AdminService.Cars/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/model" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Model"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/image" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.MediaType" String="image/png"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/currency_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="AdminService.Cars/engineType_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="EngineTypes"/>
+                        <PropertyValue Property="CollectionPath" String="EngineTypes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="engineType_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency Code"/>
+                <Annotation Term="Common.Text" Path="name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/symbol" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency Symbol"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency Code"/>
+                <Annotation Term="Common.Text" Path="name"/>
+            </Annotations>
+            <Annotations Target="AdminService.EngineTypes" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.EngineTypes/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.EngineTypes/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.EngineTypes_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.EngineTypes_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Manufactures/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Manufactures/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Manufactures/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Manufactures/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Created By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed On"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Changed By"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/OrderNo" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Order Nr."/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/total" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="AdminService.Orders/currency_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
